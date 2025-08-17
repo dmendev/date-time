@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<!-- saved from url=(0156)https://page.gensparksite.com/docs_agent/30156fae-7e0c-4d9a-817b-47f99bfb3bf9/eeb7bf45-cd7c-4902-a81e-78474399ed8f/fd9e5e66-93d0-4a34-bf0d-3d78d87273e7.html -->
+<html lang="es" data-theme="light" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de Fechas en PHP - Guía para Principiantes</title>
+    <link rel="stylesheet" href="./index_files/pico.min.css">
+    <link href="./index_files/css2" rel="stylesheet">
+    <style>
+      body {
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 32px 80px;
+        position: relative;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #2c3e50;
+      }
+
+      .cover {
+        text-align: center;
+        padding: 60px 0;
+        border-bottom: 3px solid #e74c3c;
+        margin-bottom: 40px;
+      }
+
+      .cover h1 {
+        font-size: 2.8em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      .cover .subtitle {
+        font-size: 1.4em;
+        color: #7f8c8d;
+        margin-bottom: 30px;
+        font-weight: 300;
+      }
+
+      .cover .author {
+        font-size: 1.1em;
+        color: #34495e;
+        font-style: italic;
+      }
+
+      .toc {
+        background: #f8f9fa;
+        padding: 30px;
+        border-left: 5px solid #e74c3c;
+        margin: 30px 0;
+      }
+
+      .toc h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .toc li {
+        padding: 8px 0;
+        border-bottom: 1px dotted #bdc3c7;
+      }
+
+      .toc a {
+        text-decoration: none;
+        color: #e74c3c;
+        font-weight: 500;
+      }
+
+      .chapter {
+        margin: 50px 0;
+        padding: 30px 0;
+        border-top: 2px solid #ecf0f1;
+      }
+
+      .chapter h2 {
+        color: #2c3e50;
+        font-size: 2.2em;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #e74c3c;
+      }
+
+      .chapter h3 {
+        color: #34495e;
+        font-size: 1.6em;
+        margin: 30px 0 20px 0;
+      }
+
+      .code-block {
+        background: #2c3e50;
+        color: #ecf0f1;
+        padding: 25px;
+        border-radius: 8px;
+        margin: 25px 0;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        border-left: 5px solid #e74c3c;
+        white-space: pre-wrap;
+        overflow-x: auto;
+      }
+
+      .code-block .comment {
+        color: #95a5a6;
+      }
+
+      .code-block .keyword {
+        color: #e74c3c;
+        font-weight: bold;
+      }
+
+      .code-block .string {
+        color: #f39c12;
+      }
+
+      .code-block .variable {
+        color: #3498db;
+      }
+
+      .flowchart {
+        background: #ffffff;
+        border: 2px solid #bdc3c7;
+        padding: 30px;
+        margin: 30px 0;
+        text-align: center;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .flowchart-box {
+        display: inline-block;
+        padding: 15px 25px;
+        margin: 10px;
+        border: 2px solid #e74c3c;
+        background: #ecf0f1;
+        font-weight: 500;
+        animation: fadeInUp 1s ease-out both;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .flowchart-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+        background: #e74c3c;
+        color: white;
+      }
+
+      .flowchart-box.flow-step-1 {
+        animation-delay: 0.2s;
+      }
+      .flowchart-box.flow-step-2 {
+        animation-delay: 0.6s;
+      }
+      .flowchart-box.flow-step-3 {
+        animation-delay: 1s;
+      }
+      .flowchart-box.flow-step-4 {
+        animation-delay: 1.4s;
+      }
+
+      .flowchart-diamond {
+        display: inline-block;
+        padding: 15px 20px;
+        margin: 10px;
+        background: #f39c12;
+        color: white;
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 14px;
+        text-align: center;
+        animation:
+          fadeInUp 1s ease-out 0.4s both,
+          pulse 3s ease-in-out infinite 2s;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .flowchart-diamond:hover {
+        background: #e67e22;
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+      }
+
+      .flowchart-arrow {
+        font-size: 24px;
+        color: #e74c3c;
+        margin: 10px;
+        animation:
+          fadeInUp 1s ease-out 0.8s both,
+          arrowPulse 2s ease-in-out infinite 3s;
+        transition: all 0.3s ease;
+      }
+
+      .flowchart-arrow:hover {
+        color: #c0392b;
+        transform: scale(1.2);
+      }
+
+      /* Special animation for return arrow */
+      .return-arrow {
+        animation:
+          fadeInUp 1s ease-out 1.2s both,
+          arrowPulse 1.5s ease-in-out infinite 4s;
+      }
+
+      /* Flowchart Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(244, 156, 18, 0.4);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 15px rgba(244, 156, 18, 0);
+        }
+      }
+
+      @keyframes arrowPulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scale(1.1);
+        }
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        border: 1px solid #bdc3c7;
+        padding: 15px;
+        text-align: left;
+      }
+
+      .comparison-table th {
+        background: #e74c3c;
+        color: white;
+        font-weight: 600;
+      }
+
+      .comparison-table tr:nth-child(even) {
+        background: #f8f9fa;
+      }
+
+      .exercise-box {
+        background: #e8f5e8;
+        border: 2px solid #27ae60;
+        padding: 25px;
+        margin: 25px 0;
+        border-radius: 8px;
+      }
+
+      .exercise-box h4 {
+        color: #27ae60;
+        margin-bottom: 15px;
+      }
+
+      .tip-box {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        padding: 20px;
+        margin: 25px 0;
+        border-radius: 8px;
+      }
+
+      .tip-box h4 {
+        color: #856404;
+        margin-bottom: 10px;
+      }
+
+      .warning-box {
+        background: #f8d7da;
+        border: 2px solid #dc3545;
+        padding: 20px;
+        margin: 25px 0;
+        border-radius: 8px;
+      }
+
+      .warning-box h4 {
+        color: #721c24;
+        margin-bottom: 10px;
+      }
+
+      .highlight {
+        background: #fff3cd;
+        padding: 3px 6px;
+        border-radius: 3px;
+        font-weight: 500;
+      }
+
+      .output-box {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        padding: 15px;
+        margin: 15px 0;
+        font-family: 'Courier New', monospace;
+        border-radius: 5px;
+      }
+
+      .solution-button {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        margin: 15px 0;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        text-align: left;
+      }
+
+      .solution-button:hover {
+        background: #c0392b;
+      }
+
+      .solution-button:active {
+        background: #a93226;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1199px) and (min-width: 768px) {
+        body {
+          max-width: 90%;
+        }
+      }
+
+      @media (max-width: 767px) {
+        body {
+          max-width: 95%;
+          padding: 20px 16px;
+        }
+      }
+    </style>
+    <script>
+      function toggleSolution(id) {
+        const solution = document.getElementById(id);
+        if (solution.style.display === 'none' || solution.style.display === '') {
+          solution.style.display = 'block';
+        } else {
+          solution.style.display = 'none';
+        }
+      }
+    </script>
+  </head>
+  <body style="">
+    <div class="cover">
+      <h1 style="font-size: 14px; text-align: right">
+        <strong>Programación Fullstack ITI 2025 - Prof. Diego Méndez</strong>
+      </h1>
+      <h1>Manejo de Fechas en PHP</h1>
+      <div class="subtitle">Guía para Principiantes</div>
+    </div>
+
+    <div class="toc">
+      <h2>📚 Tabla de Contenidos</h2>
+      <ul>
+        <li><a href="#introduccion">1. Introducción al Manejo de Fechas en PHP</a></li>
+        <li><a href="#tipos-datos">2. Tipos de Datos para Fechas (DateTime y timestamp)</a></li>
+        <li><a href="#crear-formatear">3. Crear y Formatear Fechas</a></li>
+        <li><a href="#operaciones">4. Operaciones con Fechas (sumar, restar, comparar)</a></li>
+        <li><a href="#casos-avanzados">5. Casos de Uso Avanzados (DateInterval, diff, timestamps)</a></li>
+        <li><a href="#ejercicios">6. Ejercicios Prácticos</a></li>
+        <li><a href="#buenas-practicas">7. Consejos y Buenas Prácticas</a></li>
+        <li><a href="#resumen">8. Resumen y Conclusiones</a></li>
+      </ul>
+    </div>
+
+    <div class="chapter" id="introduccion">
+      <h2>🕐 1. Manejo de Fechas en PHP</h2>
+
+      <h3>¿Por qué son importantes las fechas en PHP?</h3>
+      <p>
+        El manejo de fechas es fundamental en el desarrollo web. Las aplicaciones necesitan registrar cuándo ocurren
+        eventos, calcular diferencias temporales, programar tareas y mostrar información temporal de forma comprensible.
+      </p>
+
+      <h3>¿Cuándo necesitas trabajar con fechas?</h3>
+      <ul>
+        <li>Registrar fecha y hora de creación de contenido</li>
+        <li>Calcular edad de usuarios</li>
+        <li>Crear sistemas de reservas y citas</li>
+        <li>Generar reportes temporales</li>
+        <li>Validar fechas de vencimiento</li>
+        <li>Crear calendarios y cronogramas</li>
+      </ul>
+
+      <div class="tip-box">
+        <h4>💡 Ventajas del manejo correcto de fechas</h4>
+        <ul>
+          <li>Precisión en cálculos temporales</li>
+          <li>Compatibilidad internacional (zonas horarias)</li>
+          <li>Formateo flexible para diferentes culturas</li>
+          <li>Operaciones matemáticas con fechas</li>
+        </ul>
+      </div>
+
+      <!-- <h3>Diagrama de flujo del manejo de fechas</h3>
+      <div class="flowchart">
+        <div class="flowchart-box flow-step-1">1. CREAR FECHA</div>
+        <div class="flowchart-arrow">↓</div>
+        <div class="flowchart-diamond">¿Formatear fecha?</div>
+        <div style="display: flex; justify-content: space-around; margin: 20px 0">
+          <div style="text-align: center">
+            <div>SÍ</div>
+            <div class="flowchart-arrow">↓</div>
+            <div class="flowchart-box flow-step-2">2. APLICAR FORMAT()</div>
+            <div class="flowchart-arrow">↓</div>
+            <div class="flowchart-box flow-step-3">3. MOSTRAR FECHA</div>
+          </div>
+          <div style="text-align: center; margin-left: 20px">
+            <div>NO</div>
+            <div class="flowchart-arrow">↓</div>
+            <div class="flowchart-box flow-step-4">4. OPERACIONES</div>
+            <div style="font-size: 12px; margin-top: 10px">(sumar, restar, comparar)</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="chapter" id="tipos-datos">
+      <h2>📊 2. Tipos de Datos para Fechas</h2>
+
+      <h3>Los dos tipos principales en PHP</h3>
+      <p>PHP maneja fechas principalmente con dos enfoques:</p>
+
+      <div class="tip-box">
+        <h4>🎯 DateTime (Clase orientada a objetos)</h4>
+        <ul>
+          <li>Es una clase moderna y potente</li>
+          <li>Permite operaciones complejas (sumar, restar, comparar)</li>
+          <li>Se instancia con <code>new DateTime()</code></li>
+          <li>Más intuitiva y fácil de usar</li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        <h4>⚠️ timestamp (Número entero)</h4>
+        <ul>
+          <li>Representa segundos desde el 1 de enero de 1970 (Unix Epoch)</li>
+          <li>Se obtiene con <code>time()</code> o <code>strtotime()</code></li>
+          <li>Útil para cálculos matemáticos simples</li>
+          <li>Menos intuitivo pero más directo</li>
+        </ul>
+      </div>
+
+      <h3>Tabla comparativa: DateTime vs timestamp</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Aspecto</th>
+            <th>DateTime</th>
+            <th>timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tipo de dato</strong></td>
+            <td>Objeto (clase)</td>
+            <td>Entero (int)</td>
+          </tr>
+          <tr>
+            <td><strong>Creación</strong></td>
+            <td>new DateTime('2025-12-25')</td>
+            <td>strtotime('2025-12-25')</td>
+          </tr>
+          <tr>
+            <td><strong>Legibilidad</strong></td>
+            <td>Alta (métodos descriptivos)</td>
+            <td>Media (solo números)</td>
+          </tr>
+          <tr>
+            <td><strong>Operaciones</strong></td>
+            <td>add(), sub(), diff(), modify()</td>
+            <td>Aritmética básica (+, -, etc.)</td>
+          </tr>
+          <tr>
+            <td><strong>Formateo</strong></td>
+            <td>$date-&gt;format('d/m/Y')</td>
+            <td>date('d/m/Y', $timestamp)</td>
+          </tr>
+          <tr>
+            <td><strong>Zonas horarias</strong></td>
+            <td>Soporte nativo completo</td>
+            <td>Soporte limitado</td>
+          </tr>
+          <tr>
+            <td><strong>Recomendación</strong></td>
+            <td>✅ Preferido para nuevos proyectos</td>
+            <td>⚡ Para operaciones simples</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Ejemplos básicos de ambos tipos</h3>
+
+      <h4>Usando DateTime:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// Crear fecha actual</span>
+        <span class="variable">$ahora</span> = <span class="keyword">new</span> DateTime();
+        <span class="keyword">echo</span> <span class="variable">$ahora</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d H:i:s'</span>);
+
+        <span class="comment">// Crear fecha específica</span>
+        <span class="variable">$navidad</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-25'</span>); <span class="keyword">echo</span> <span class="variable">$navidad</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h4>Usando timestamp:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// Timestamp actual</span>
+        <span class="variable">$ahora</span> = <span class="keyword">time</span>(); <span class="keyword">echo</span>
+        <span class="keyword">date</span>(<span class="string">'Y-m-d H:i:s'</span>,
+        <span class="variable">$ahora</span>);
+
+        <span class="comment">// Convertir string a timestamp</span>
+        <span class="variable">$navidad</span> = <span class="keyword">strtotime</span>(<span class="string">'2025-12-25'</span>); <span class="keyword">echo</span> <span class="keyword">date</span>(<span class="string">'d/m/Y'</span>,
+        <span class="variable">$navidad</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+    </div>
+
+    <div class="chapter" id="crear-formatear">
+      <h2>🛠️ 3. Crear y Formatear Fechas</h2>
+
+      <h3>Creando fechas con DateTime</h3>
+
+      <h4>Fecha y hora actual:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$ahora</span> = <span class="keyword">new</span> DateTime();
+        <span class="keyword">echo</span> <span class="string">"Fecha actual: "</span> .
+        <span class="variable">$ahora</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d H:i:s'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h4>Fecha específica:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// Diferentes formas de crear fechas específicas</span>
+        <span class="variable">$navidad</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-25'</span>); <span class="variable">$anioNuevo</span> = <span class="keyword">new</span> DateTime(<span class="string">'2026-01-01 00:00:00'</span>); <span class="variable">$cumple</span> = <span class="keyword">new</span> DateTime(<span class="string">'1990-05-15 14:30:00'</span>);
+
+        <span class="keyword">echo</span> <span class="string">"Navidad: "</span> .
+        <span class="variable">$navidad</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>)
+        . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Año nuevo: "</span> . <span class="variable">$anioNuevo</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y H:i'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Cumpleaños: "</span> .
+        <span class="variable">$cumple</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y H:i:s'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h4>Fechas desde expresiones naturales:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// PHP entiende expresiones en inglés</span>
+        <span class="variable">$proximoLunes</span> = <span class="keyword">new</span> DateTime(<span class="string">'next Monday'</span>); <span class="variable">$haceUnaSemana</span> = <span class="keyword">new</span> DateTime(<span class="string">'last week'</span>); <span class="variable">$enUnMes</span> = <span class="keyword">new</span> DateTime(<span class="string">'+1 month'</span>); <span class="variable">$ayer</span> = <span class="keyword">new</span> DateTime(<span class="string">'yesterday'</span>);
+
+        <span class="keyword">echo</span> <span class="string">"Próximo lunes: "</span> .
+        <span class="variable">$proximoLunes</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Hace una semana: "</span> . <span class="variable">$haceUnaSemana</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"En un mes: "</span> . <span class="variable">$enUnMes</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Ayer: "</span> . <span class="variable">$ayer</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h3>Formateo de fechas con format()</h3>
+
+      <div class="tip-box">
+        <h4>📝 Códigos de formateo más comunes</h4>
+        <ul>
+          <li><strong>Y:</strong> Año completo (2025)</li>
+          <li><strong>y:</strong> Año de 2 dígitos (25)</li>
+          <li><strong>m:</strong> Mes con ceros (01-12)</li>
+          <li><strong>n:</strong> Mes sin ceros (1-12)</li>
+          <li><strong>d:</strong> Día con ceros (01-31)</li>
+          <li><strong>j:</strong> Día sin ceros (1-31)</li>
+          <li><strong>H:</strong> Hora 24h con ceros (00-23)</li>
+          <li><strong>i:</strong> Minutos con ceros (00-59)</li>
+          <li><strong>s:</strong> Segundos con ceros (00-59)</li>
+          <li><strong>l:</strong> Día de la semana completo</li>
+        </ul>
+      </div>
+
+      <h4>Ejemplos de formateo:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-25 15:30:45'</span>);
+
+        <span class="comment">// Diferentes formatos</span>
+        <span class="keyword">echo</span> <span class="string">"Formato estándar: "</span> .
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d H:i:s'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Formato español: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Formato americano: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'m/d/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Solo hora: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'H:i:s'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Día de la semana: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'l'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Fecha legible: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'l, j \d\e F \d\e Y'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="output-box">
+        <strong>Salida:</strong><br>
+        Formato estándar: 2025-12-25 15:30:45<br>
+        Formato español: 25/12/2025<br>
+        Formato americano: 12/25/2025<br>
+        Solo hora: 15:30:45<br>
+        Día de la semana: Thursday<br>
+        Fecha legible: Thursday, 25 de December de 2025
+      </div>
+
+      <h4>Formateo con configuración regional:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-25'</span>);
+
+        <span class="comment">// Para mostrar en español (solo si el servidor lo soporta)</span>
+        <span class="keyword">setlocale</span>(LC_TIME, <span class="string">'es_ES.UTF-8'</span>);
+        <span class="keyword">echo</span> <span class="keyword">strftime</span>(<span class="string">'%A, %d de %B de %Y'</span>, <span class="variable">$fecha</span>-&gt;<span class="keyword">getTimestamp</span>());
+        <span class="comment">// Salida: jueves, 25 de diciembre de 2025</span>
+        <span class="keyword">?&gt;</span>
+      </div>
+    </div>
+
+    <div class="chapter" id="operaciones">
+      <h2>⚖️ 4. Operaciones con Fechas</h2>
+
+      <h3>Sumar y restar fechas</h3>
+
+      <h4>Usando DateInterval:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-25'</span>);
+
+        <span class="comment">// Sumar 5 días</span>
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">add</span>(<span class="keyword">new</span>
+        DateInterval(<span class="string">'P5D'</span>)); <span class="keyword">echo</span>
+        <span class="string">"Después de sumar 5 días: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>;
+
+        <span class="comment">// Restar 2 meses</span>
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">sub</span>(<span class="keyword">new</span>
+        DateInterval(<span class="string">'P2M'</span>)); <span class="keyword">echo</span>
+        <span class="string">"Después de restar 2 meses: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>;
+
+        <span class="comment">// Sumar 1 año y 3 días</span>
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">add</span>(<span class="keyword">new</span>
+        DateInterval(<span class="string">'P1Y3D'</span>)); <span class="keyword">echo</span>
+        <span class="string">"Después de sumar 1 año y 3 días: "</span> . <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="tip-box">
+        <h4>📘 Códigos de DateInterval</h4>
+        <ul>
+          <li><strong>P:</strong> Indica período (obligatorio al inicio)</li>
+          <li><strong>Y:</strong> Años</li>
+          <li><strong>M:</strong> Meses</li>
+          <li><strong>D:</strong> Días</li>
+          <li><strong>T:</strong> Separador para tiempo</li>
+          <li><strong>H:</strong> Horas (después de T)</li>
+          <li><strong>M:</strong> Minutos (después de T)</li>
+          <li><strong>S:</strong> Segundos (después de T)</li>
+        </ul>
+      </div>
+
+      <h4>Usando modify() (más simple):</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-25'</span>); <span class="keyword">echo</span> <span class="string">"Fecha original: "</span> .
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) .
+        <span class="string">"\n"</span>;
+
+        <span class="comment">// Sumar 1 semana</span>
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">modify</span>(<span class="string">'+1 week'</span>); <span class="keyword">echo</span> <span class="string">"Más 1 semana: "</span> .
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) .
+        <span class="string">"\n"</span>;
+
+        <span class="comment">// Restar 10 días</span>
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">modify</span>(<span class="string">'-10 days'</span>); <span class="keyword">echo</span> <span class="string">"Menos 10 días: "</span> .
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) .
+        <span class="string">"\n"</span>;
+
+        <span class="comment">// Ir al primer día del próximo mes</span>
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">modify</span>(<span class="string">'first day of next month'</span>); <span class="keyword">echo</span> <span class="string">"Primer día del próximo mes: "</span> .
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h3>Comparar fechas</h3>
+
+      <h4>Comparaciones directas:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha1</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-01-01'</span>); <span class="variable">$fecha2</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-31'</span>);
+
+        <span class="keyword">if</span> (<span class="variable">$fecha1</span> &lt;
+        <span class="variable">$fecha2</span>) { <span class="keyword">echo</span>
+        <span class="string">"fecha1 es anterior a fecha2\n"</span>; }
+
+        <span class="keyword">if</span> (<span class="variable">$fecha2</span> &gt;
+        <span class="variable">$fecha1</span>) { <span class="keyword">echo</span>
+        <span class="string">"fecha2 es posterior a fecha1\n"</span>; }
+
+        <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        <span class="keyword">if</span> (<span class="variable">$fecha1</span> == <span class="variable">$hoy</span>) {
+        <span class="keyword">echo</span> <span class="string">"Las fechas son iguales\n"</span>; }
+        <span class="keyword">else</span> { <span class="keyword">echo</span>
+        <span class="string">"Las fechas son diferentes\n"</span>; }
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h3>Diferencias entre fechas con diff()</h3>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$inicio</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-01-01'</span>); <span class="variable">$fin</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-12-31'</span>);
+
+        <span class="variable">$intervalo</span> = <span class="variable">$inicio</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$fin</span>);
+
+        <span class="keyword">echo</span> <span class="string">"Diferencia completa: "</span> .
+        <span class="variable">$intervalo</span>-&gt;<span class="keyword">format</span>(<span class="string">'%m meses y %d días'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Solo días: "</span> . <span class="variable">$intervalo</span>-&gt;<span class="keyword">days</span>
+        . <span class="string">" días\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Solo años: "</span> . <span class="variable">$intervalo</span>-&gt;<span class="keyword">y</span>
+        . <span class="string">" años\n"</span>;
+
+        <span class="comment">// Verificar si la diferencia es negativa</span>
+        <span class="keyword">if</span> (<span class="variable">$intervalo</span>-&gt;<span class="keyword">invert</span>)
+        { <span class="keyword">echo</span> <span class="string">"La primera fecha es posterior a la segunda\n"</span>;
+        }
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="output-box">
+        <strong>Salida:</strong><br>
+        Diferencia completa: 11 meses y 30 días<br>
+        Solo días: 364 días<br>
+        Solo años: 0 años
+      </div>
+    </div>
+
+    <div class="chapter" id="casos-avanzados">
+      <h2>🚀 5. Casos de Uso Avanzados</h2>
+
+      <h3>Trabajando con timestamps</h3>
+
+      <h4>Obtener timestamp actual:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$timestamp</span> = <span class="keyword">time</span>();
+        <span class="comment">// Ahora mismo</span> <span class="keyword">echo</span>
+        <span class="string">"Timestamp actual: "</span> . <span class="variable">$timestamp</span> .
+        <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Fecha formateada: "</span> . <span class="keyword">date</span>(<span class="string">'d/m/Y H:i:s'</span>, <span class="variable">$timestamp</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h4>Convertir strings a timestamps:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// Convertir diferentes formatos</span>
+        <span class="variable">$navidad</span> = <span class="keyword">strtotime</span>(<span class="string">'2025-12-25'</span>); <span class="variable">$ayer</span> = <span class="keyword">strtotime</span>(<span class="string">'yesterday'</span>); <span class="variable">$proximaSemanana</span> = <span class="keyword">strtotime</span>(<span class="string">'+1 week'</span>);
+
+        <span class="keyword">echo</span> <span class="string">"Navidad: "</span> .
+        <span class="keyword">date</span>(<span class="string">'l, d/m/Y'</span>,
+        <span class="variable">$navidad</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Ayer: "</span> . <span class="keyword">date</span>(<span class="string">'d/m/Y'</span>,
+        <span class="variable">$ayer</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Próxima semana: "</span> . <span class="keyword">date</span>(<span class="string">'d/m/Y'</span>, <span class="variable">$proximaSemanana</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h3>Casos prácticos complejos</h3>
+
+      <h4>Calculadora de edad:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="keyword">function</span> <span class="variable">calcularEdad</span>(<span class="variable">$fechaNacimiento</span>) { <span class="variable">$nacimiento</span> = <span class="keyword">new</span> DateTime(<span class="variable">$fechaNacimiento</span>); <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        <span class="variable">$edad</span> = <span class="variable">$nacimiento</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$hoy</span>);
+
+        <span class="keyword">return</span> [ <span class="string">'años'</span> =&gt;
+        <span class="variable">$edad</span>-&gt;<span class="keyword">y</span>, <span class="string">'meses'</span> =&gt;
+        <span class="variable">$edad</span>-&gt;<span class="keyword">m</span>, <span class="string">'días'</span> =&gt;
+        <span class="variable">$edad</span>-&gt;<span class="keyword">d</span>,
+        <span class="string">'total_días'</span> =&gt; <span class="variable">$edad</span>-&gt;<span class="keyword">days</span>
+        ]; }
+
+        <span class="variable">$edadInfo</span> = <span class="variable">calcularEdad</span>(<span class="string">'1990-05-15'</span>); <span class="keyword">echo</span> <span class="string">"Edad: "</span> .
+        <span class="variable">$edadInfo</span>[<span class="string">'años'</span>] .
+        <span class="string">" años, "</span> . <span class="variable">$edadInfo</span>[<span class="string">'meses'</span>] . <span class="string">" meses y "</span> . <span class="variable">$edadInfo</span>[<span class="string">'días'</span>] . <span class="string">" días\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Total de días vividos: "</span> . <span class="variable">$edadInfo</span>[<span class="string">'total_días'</span>];
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h4>Sistema de vencimientos:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="keyword">function</span> <span class="variable">verificarVencimiento</span>(<span class="variable">$fechaVencimiento</span>) { <span class="variable">$vencimiento</span> = <span class="keyword">new</span> DateTime(<span class="variable">$fechaVencimiento</span>); <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+
+        <span class="keyword">if</span> (<span class="variable">$vencimiento</span> &lt;
+        <span class="variable">$hoy</span>) { <span class="variable">$diferencia</span> =
+        <span class="variable">$hoy</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$vencimiento</span>); <span class="keyword">return</span> <span class="string">"⚠️ VENCIDO hace "</span> .
+        <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> .
+        <span class="string">" días"</span>; } <span class="keyword">elseif</span> (<span class="variable">$vencimiento</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d'</span>) ==
+        <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d'</span>)) {
+        <span class="keyword">return</span> <span class="string">"🔔 VENCE HOY"</span>; }
+        <span class="keyword">else</span> { <span class="variable">$diferencia</span> =
+        <span class="variable">$hoy</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$vencimiento</span>); <span class="keyword">if</span> (<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span>
+        &lt;= 7) { <span class="keyword">return</span> <span class="string">"⚡ Vence en "</span> .
+        <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> .
+        <span class="string">" días (URGENTE)"</span>; } <span class="keyword">else</span> {
+        <span class="keyword">return</span> <span class="string">"✅ Vence en "</span> .
+        <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> .
+        <span class="string">" días"</span>; } } }
+
+        <span class="comment">// Ejemplos de uso</span>
+        <span class="keyword">echo</span> <span class="variable">verificarVencimiento</span>(<span class="string">'2024-12-20'</span>) . <span class="string">"\n"</span>; <span class="comment">// Vencido</span>
+        <span class="keyword">echo</span> <span class="variable">verificarVencimiento</span>(<span class="string">'2025-12-31'</span>) . <span class="string">"\n"</span>; <span class="comment">// Futuro</span>
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <h4>Generador de horarios:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="keyword">function</span> <span class="variable">generarHorarios</span>(<span class="variable">$fechaInicio</span>, <span class="variable">$horaInicio</span>, <span class="variable">$horaFin</span>,
+        <span class="variable">$duracionCita</span>) { <span class="variable">$fecha</span> =
+        <span class="keyword">new</span> DateTime(<span class="variable">$fechaInicio</span> .
+        <span class="string">' '</span> . <span class="variable">$horaInicio</span>);
+        <span class="variable">$fin</span> = <span class="keyword">new</span> DateTime(<span class="variable">$fechaInicio</span>
+        . <span class="string">' '</span> . <span class="variable">$horaFin</span>);
+        <span class="variable">$horarios</span> = [];
+
+        <span class="keyword">while</span> (<span class="variable">$fecha</span> &lt;
+        <span class="variable">$fin</span>) { <span class="variable">$horarios</span>[] =
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(<span class="string">'H:i'</span>);
+        <span class="variable">$fecha</span>-&gt;<span class="keyword">add</span>(<span class="keyword">new</span>
+        DateInterval(<span class="string">'PT'</span> . <span class="variable">$duracionCita</span> .
+        <span class="string">'M'</span>)); }
+
+        <span class="keyword">return</span> <span class="variable">$horarios</span>; }
+
+        <span class="comment">// Generar citas de 30 minutos de 9:00 a 17:00</span>
+        <span class="variable">$horariosDisponibles</span> = <span class="variable">generarHorarios</span>(<span class="string">'2025-01-15'</span>, <span class="string">'09:00'</span>, <span class="string">'17:00'</span>, 30);
+
+        <span class="keyword">echo</span> <span class="string">"Horarios disponibles para el 15/01/2025:\n"</span>;
+        <span class="keyword">foreach</span> (<span class="variable">$horariosDisponibles</span>
+        <span class="keyword">as</span> <span class="variable">$horario</span>) { <span class="keyword">echo</span>
+        <span class="string">"- "</span> . <span class="variable">$horario</span> . <span class="string">"\n"</span>; }
+        <span class="keyword">?&gt;</span>
+      </div>
+    </div>
+
+    <div class="chapter" id="ejercicios">
+      <h2>💪 6. Ejercicios Prácticos</h2>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 1: Mostrar la fecha actual en distintos formatos</h4>
+        <p><strong>Objetivo:</strong> Usar DateTime y format() para mostrar la fecha actual en múltiples formatos.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>dd/mm/yyyy</li>
+          <li>yyyy-mm-dd</li>
+          <li>día de la semana, día de mes de año (ej: martes, 04 de agosto de 2025)</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution1&#39;)">👁️ Ver Solución del Ejercicio 1</button>
+      <div class="code-block" id="solution1" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$ahora</span> = <span class="keyword">new</span> DateTime();
+
+        <span class="keyword">echo</span> <span class="string">"📅 FECHA ACTUAL EN DIFERENTES FORMATOS\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"=====================================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Formato dd/mm/yyyy: "</span> .
+        <span class="variable">$ahora</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) .
+        <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Formato yyyy-mm-dd: "</span> . <span class="variable">$ahora</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Formato completo: "</span> . <span class="variable">$ahora</span>-&gt;<span class="keyword">format</span>(<span class="string">'l, j \d\e F \d\e Y'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Con hora: "</span> .
+        <span class="variable">$ahora</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y H:i:s'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 2: Calcular cuántos días faltan para navidad</h4>
+        <p><strong>Objetivo:</strong> Usar diff() y comparación de fechas para calcular días restantes.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Mostrar cuántos días faltan desde hoy hasta el 25 de diciembre del año actual</li>
+          <li>Si ya pasó, calcular para el próximo año</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution2&#39;)">👁️ Ver Solución del Ejercicio 2</button>
+      <div class="code-block" id="solution2" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        <span class="variable">$anioActual</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y'</span>); <span class="variable">$navidad</span> =
+        <span class="keyword">new</span> DateTime(<span class="variable">$anioActual</span> .
+        <span class="string">'-12-25'</span>);
+
+        <span class="comment">// Si ya pasó navidad este año, calcular para el próximo</span>
+        <span class="keyword">if</span> (<span class="variable">$hoy</span> &gt; <span class="variable">$navidad</span>)
+        { <span class="variable">$navidad</span> = <span class="keyword">new</span> DateTime((<span class="variable">$anioActual</span>
+        + 1) . <span class="string">'-12-25'</span>); }
+
+        <span class="variable">$diferencia</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$navidad</span>);
+
+        <span class="keyword">echo</span> <span class="string">"🎄 CONTADOR NAVIDAD 🎄\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"======================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Hoy es: "</span> .
+        <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) .
+        <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Próxima navidad: "</span> . <span class="variable">$navidad</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Faltan: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span>
+        . <span class="string">" días\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"O sea: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">format</span>(<span class="string">'%m meses y %d días'</span>);
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 3: Mostrar la fecha del próximo lunes</h4>
+        <p><strong>Objetivo:</strong> Usar DateTime con expresiones naturales.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Crear una fecha con "next Monday"</li>
+          <li>Mostrarla en formato legible</li>
+          <li>Calcular cuántos días faltan</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution3&#39;)">👁️ Ver Solución del Ejercicio 3</button>
+      <div class="code-block" id="solution3" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        <span class="variable">$proximoLunes</span> = <span class="keyword">new</span> DateTime(<span class="string">'next Monday'</span>);
+
+        <span class="variable">$diferencia</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$proximoLunes</span>);
+
+        <span class="keyword">echo</span> <span class="string">"📅 PRÓXIMO LUNES\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Hoy es: "</span> .
+        <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'l, d/m/Y'</span>)
+        . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Próximo lunes: "</span> . <span class="variable">$proximoLunes</span>-&gt;<span class="keyword">format</span>(<span class="string">'l, d/m/Y'</span>) . <span class="string">"\n"</span>; <span class="keyword">echo</span>
+        <span class="string">"Faltan: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span>
+        . <span class="string">" días\n"</span>;
+
+        <span class="comment">// Información adicional</span>
+        <span class="keyword">if</span> (<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> ==
+        1) { <span class="keyword">echo</span> <span class="string">"¡Es mañana! 🔥"</span>; }
+        <span class="keyword">elseif</span> (<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span>
+        == 0) { <span class="keyword">echo</span> <span class="string">"¡Es hoy! 🎉"</span>; }
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 4: Sumar 100 días a una fecha dada</h4>
+        <p><strong>Objetivo:</strong> Usar add() y DateInterval para operaciones con fechas.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Tomar una fecha (simular con variable)</li>
+          <li>Sumar 100 días</li>
+          <li>Mostrar qué día cae y en qué día de la semana</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution4&#39;)">👁️ Ver Solución del Ejercicio 4</button>
+      <div class="code-block" id="solution4" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fechaOriginal</span> = <span class="keyword">new</span> DateTime(<span class="string">'2025-01-01'</span>); <span class="variable">$fechaCopia</span> = <span class="keyword">clone</span>
+        <span class="variable">$fechaOriginal</span>; <span class="comment">// Clonar para no modificar original</span>
+
+        <span class="comment">// Sumar 100 días</span>
+        <span class="variable">$fechaCopia</span>-&gt;<span class="keyword">add</span>
+        (<span class="keyword">new</span> DateInterval(<span class="string">'P100D'</span>));
+
+        <span class="keyword">echo</span> <span class="string">"📊 SUMAR 100 DÍAS\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"==================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha original: "</span> . 
+        <span class="variable">$fechaOriginal</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Después de 100 días: "</span> . 
+        <span class="variable">$fechaCopia</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        
+        <span class="comment">// Calcular exactamente cuántos días se sumaron</span>
+        <span class="variable">$diferencia</span> = <span class="variable">$fechaOriginal</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$fechaCopia</span>);
+        <span class="keyword">echo</span> <span class="string">"Días transcurridos: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> . <span class="string">" días"</span>;
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 5: Determinar la edad de una persona</h4>
+        <p><strong>Objetivo:</strong> Usar diff() con fechas de nacimiento para calcular edad exacta.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Usar una fecha de nacimiento fija</li>
+          <li>Calcular años, meses y días de edad</li>
+          <li>Mostrar también total de días vividos</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution5&#39;)">👁️ Ver Solución del Ejercicio 5</button>
+      <div class="code-block" id="solution5" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fechaNacimiento</span> = <span class="keyword">new</span> DateTime(<span class="string">'1990-03-15'</span>);
+        <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        
+        <span class="variable">$edad</span> = <span class="variable">$fechaNacimiento</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$hoy</span>);
+        
+        <span class="keyword">echo</span> <span class="string">"👶 CALCULADORA DE EDAD\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"======================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha de nacimiento: "</span> . 
+        <span class="variable">$fechaNacimiento</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Hoy: "</span> . <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Edad exacta: "</span> . <span class="variable">$edad</span>-&gt;<span class="keyword">y</span> . 
+        <span class="string">" años, "</span> . <span class="variable">$edad</span>-&gt;<span class="keyword">m</span> . <span class="string">" meses y "</span> . 
+        <span class="variable">$edad</span>-&gt;<span class="keyword">d</span> . <span class="string">" días\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Total días vividos: "</span> . <span class="variable">$edad</span>-&gt;<span class="keyword">days</span> . <span class="string">" días\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"¡Eso son "</span> . <span class="keyword">number_format</span>(<span class="variable">$edad</span>-&gt;<span class="keyword">days</span> * 24) . <span class="string">" horas de vida! 🌟"</span>;
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 6: Comparar dos fechas y decir cuál es más antigua</h4>
+        <p><strong>Objetivo:</strong> Comparación entre DateTime para determinar orden cronológico.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Crear dos fechas diferentes</li>
+          <li>Compararlas y determinar cuál es anterior</li>
+          <li>Mostrar la diferencia en tiempo entre ellas</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution6&#39;)">👁️ Ver Solución del Ejercicio 6</button>
+      <div class="code-block" id="solution6" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha1</span> = <span class="keyword">new</span> DateTime(<span class="string">'2020-05-15'</span>);
+        <span class="variable">$fecha2</span> = <span class="keyword">new</span> DateTime(<span class="string">'2023-11-28'</span>);
+        
+        <span class="keyword">echo</span> <span class="string">"⚖️ COMPARADOR DE FECHAS\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"========================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha 1: "</span> . <span class="variable">$fecha1</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha 2: "</span> . <span class="variable">$fecha2</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n\n"</span>;
+        
+        <span class="keyword">if</span> (<span class="variable">$fecha1</span> &lt; <span class="variable">$fecha2</span>) {
+            <span class="keyword">echo</span> <span class="string">"📅 La Fecha 1 es MÁS ANTIGUA\n"</span>;
+            <span class="variable">$diferencia</span> = <span class="variable">$fecha1</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$fecha2</span>);
+            <span class="variable">$fechaAntigua</span> = <span class="variable">$fecha1</span>;
+            <span class="variable">$fechaReciente</span> = <span class="variable">$fecha2</span>;
+        } <span class="keyword">elseif</span> (<span class="variable">$fecha2</span> &lt; <span class="variable">$fecha1</span>) {
+            <span class="keyword">echo</span> <span class="string">"📅 La Fecha 2 es MÁS ANTIGUA\n"</span>;
+            <span class="variable">$diferencia</span> = <span class="variable">$fecha2</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$fecha1</span>);
+            <span class="variable">$fechaAntigua</span> = <span class="variable">$fecha2</span>;
+            <span class="variable">$fechaReciente</span> = <span class="variable">$fecha1</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">echo</span> <span class="string">"🤝 ¡Las fechas son IGUALES!\n"</span>;
+            <span class="keyword">return</span>;
+        }
+        
+        <span class="keyword">echo</span> <span class="string">"Diferencia: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">format</span>(<span class="string">'%y años, %m meses y %d días'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Total: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> . <span class="string">" días de diferencia"</span>;
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 7: Mostrar el día de la semana en que naciste</h4>
+        <p><strong>Objetivo:</strong> Usar format('l') para obtener el día de la semana de una fecha específica.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Usar una fecha de nacimiento</li>
+          <li>Mostrar en qué día de la semana fue</li>
+          <li>Agregar información curiosa sobre ese día</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution7&#39;)">👁️ Ver Solución del Ejercicio 7</button>
+      <div class="code-block" id="solution7" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fechaNacimiento</span> = <span class="keyword">new</span> DateTime(<span class="string">'1995-07-22'</span>);
+        
+        <span class="variable">$diaSemana</span> = <span class="variable">$fechaNacimiento</span>-&gt;<span class="keyword">format</span>(<span class="string">'l'</span>);
+        <span class="variable">$diaSemanaEsp</span> = [
+            <span class="string">'Monday'</span> =&gt; <span class="string">'Lunes'</span>,
+            <span class="string">'Tuesday'</span> =&gt; <span class="string">'Martes'</span>,
+            <span class="string">'Wednesday'</span> =&gt; <span class="string">'Miércoles'</span>,
+            <span class="string">'Thursday'</span> =&gt; <span class="string">'Jueves'</span>,
+            <span class="string">'Friday'</span> =&gt; <span class="string">'Viernes'</span>,
+            <span class="string">'Saturday'</span> =&gt; <span class="string">'Sábado'</span>,
+            <span class="string">'Sunday'</span> =&gt; <span class="string">'Domingo'</span>
+        ];
+        
+        <span class="keyword">echo</span> <span class="string">"🗓️ DÍA DE NACIMIENTO\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"====================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha de nacimiento: "</span> . <span class="variable">$fechaNacimiento</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"¡Naciste un "</span> . <span class="variable">$diaSemanaEsp</span>[<span class="variable">$diaSemana</span>] . <span class="string">"! 🎉\n\n"</span>;
+        
+        <span class="comment">// Información curiosa según el día</span>
+        <span class="keyword">switch</span>(<span class="variable">$diaSemana</span>) {
+            <span class="keyword">case</span> <span class="string">'Monday'</span>:
+                <span class="keyword">echo</span> <span class="string">"💪 Los nacidos en lunes son determinados y trabajadores."</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'Tuesday'</span>:
+                <span class="keyword">echo</span> <span class="string">"🔥 Los nacidos en martes son enérgicos y valientes."</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'Wednesday'</span>:
+                <span class="keyword">echo</span> <span class="string">"🧠 Los nacidos en miércoles son intelectuales y comunicativos."</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'Thursday'</span>:
+                <span class="keyword">echo</span> <span class="string">"🌟 Los nacidos en jueves son optimistas y generosos."</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'Friday'</span>:
+                <span class="keyword">echo</span> <span class="string">"💖 Los nacidos en viernes son encantadores y artísticos."</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'Saturday'</span>:
+                <span class="keyword">echo</span> <span class="string">"🏔️ Los nacidos en sábado son responsables y perseverantes."</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'Sunday'</span>:
+                <span class="keyword">echo</span> <span class="string">"☀️ Los nacidos en domingo son creativos y líderes naturales."</span>;
+                <span class="keyword">break</span>;
+        }
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 8: Calcular cuántos días pasaron desde una fecha</h4>
+        <p><strong>Objetivo:</strong> Usar diff() para calcular tiempo transcurrido desde un evento histórico.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Usar una fecha histórica significativa</li>
+          <li>Calcular días, meses y años transcurridos</li>
+          <li>Mostrar el resultado de forma comprensible</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution8&#39;)">👁️ Ver Solución del Ejercicio 8</button>
+      <div class="code-block" id="solution8" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fechaHistorica</span> = <span class="keyword">new</span> DateTime(<span class="string">'1969-07-20'</span>); <span class="comment">// Llegada del hombre a la luna</span>
+        <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        
+        <span class="variable">$diferencia</span> = <span class="variable">$fechaHistorica</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$hoy</span>);
+        
+        <span class="keyword">echo</span> <span class="string">"🚀 TIEMPO TRANSCURRIDO DESDE UN EVENTO HISTÓRICO\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"================================================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Evento: Llegada del hombre a la Luna 🌙\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha del evento: "</span> . <span class="variable">$fechaHistorica</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fecha actual: "</span> . <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n\n"</span>;
+        
+        <span class="keyword">echo</span> <span class="string">"⏰ Tiempo transcurrido:\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Años: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">y</span> . <span class="string">" años\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Meses adicionales: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">m</span> . <span class="string">" meses\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Días adicionales: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">d</span> . <span class="string">" días\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Total en días: "</span> . <span class="keyword">number_format</span>(<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span>) . <span class="string">" días\n\n"</span>;
+        
+        <span class="keyword">echo</span> <span class="string">"🎯 Datos curiosos:\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Eso son "</span> . <span class="keyword">number_format</span>(<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> * 24) . <span class="string">" horas\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• O sea "</span> . <span class="keyword">number_format</span>(<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> * 24 * 60) . <span class="string">" minutos"</span>;
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 9: Crear un contador regresivo a fin de mes</h4>
+        <p><strong>Objetivo:</strong> Usar DateTime y diff() para calcular días restantes del mes actual.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Obtener el último día del mes actual</li>
+          <li>Calcular cuántos días faltan desde hoy</li>
+          <li>Mostrar información detallada del período restante</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution9&#39;)">👁️ Ver Solución del Ejercicio 9</button>
+      <div class="code-block" id="solution9" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$hoy</span> = <span class="keyword">new</span> DateTime();
+        <span class="variable">$finMes</span> = <span class="keyword">new</span> DateTime(<span class="string">'last day of this month'</span>);
+        
+        <span class="comment">// Si ya es el último día</span>
+        <span class="keyword">if</span> (<span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d'</span>) == <span class="variable">$finMes</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y-m-d'</span>)) {
+            <span class="keyword">echo</span> <span class="string">"🎉 ¡HOY ES EL ÚLTIMO DÍA DEL MES!\n"</span>;
+            <span class="keyword">echo</span> <span class="string">"Mañana empieza "</span> . <span class="variable">$hoy</span>-&gt;<span class="keyword">modify</span>(<span class="string">'+1 day'</span>)-&gt;<span class="keyword">format</span>(<span class="string">'F'</span>);
+            <span class="keyword">return</span>;
+        }
+        
+        <span class="variable">$diferencia</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">diff</span>(<span class="variable">$finMes</span>);
+        <span class="variable">$mesActual</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'F'</span>);
+        <span class="variable">$totalDiasMes</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'t'</span>);
+        <span class="variable">$diaActual</span> = <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'j'</span>);
+        
+        <span class="keyword">echo</span> <span class="string">"📅 CONTADOR REGRESIVO - FIN DE MES\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"===================================\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Mes actual: "</span> . <span class="variable">$mesActual</span> . <span class="string">" "</span> . <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'Y'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Hoy: "</span> . <span class="variable">$hoy</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Fin de mes: "</span> . <span class="variable">$finMes</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y (l)'</span>) . <span class="string">"\n\n"</span>;
+        
+        <span class="keyword">echo</span> <span class="string">"⏰ Tiempo restante:\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Faltan: "</span> . <span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> . <span class="string">" días\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"• Progreso: "</span> . <span class="variable">$diaActual</span> . <span class="string">"/"</span> . <span class="variable">$totalDiasMes</span> . <span class="string">" días ("</span> . 
+              <span class="keyword">round</span>((<span class="variable">$diaActual</span> / <span class="variable">$totalDiasMes</span>) * 100, 1) . <span class="string">"%)\n"</span>;
+        
+        <span class="keyword">if</span> (<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> &lt;= 5) {
+            <span class="keyword">echo</span> <span class="string">"🚨 ¡QUEDAN POCOS DÍAS!\n"</span>;
+        } <span class="keyword">elseif</span> (<span class="variable">$diferencia</span>-&gt;<span class="keyword">days</span> &lt;= 10) {
+            <span class="keyword">echo</span> <span class="string">"⚠️ El mes está terminando\n"</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">echo</span> <span class="string">"📝 Aún tienes tiempo este mes\n"</span>;
+        }
+        <span class="keyword">?&gt;</span>
+      </div>
+
+      <div class="exercise-box">
+        <h4>🏋️ Ejercicio 10: Mostrar los próximos 5 días a partir de hoy</h4>
+        <p><strong>Objetivo:</strong> Usar modify() o add() en bucle para generar fechas futuras.</p>
+        <p><strong>Requisitos:</strong></p>
+        <ul>
+          <li>Mostrar los próximos 5 días desde hoy</li>
+          <li>Incluir el día de la semana de cada fecha</li>
+          <li>Usar formato legible y atractivo</li>
+        </ul>
+      </div>
+
+      <button class="solution-button" onclick="toggleSolution(&#39;solution10&#39;)">👁️ Ver Solución del Ejercicio 10</button>
+      <div class="code-block" id="solution10" style="display: none;">
+        <span class="keyword">&lt;?php</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime();
+        
+        <span class="variable">$diasSemana</span> = [
+            <span class="string">'Monday'</span> =&gt; <span class="string">'Lunes'</span>,
+            <span class="string">'Tuesday'</span> =&gt; <span class="string">'Martes'</span>, 
+            <span class="string">'Wednesday'</span> =&gt; <span class="string">'Miércoles'</span>,
+            <span class="string">'Thursday'</span> =&gt; <span class="string">'Jueves'</span>,
+            <span class="string">'Friday'</span> =&gt; <span class="string">'Viernes'</span>,
+            <span class="string">'Saturday'</span> =&gt; <span class="string">'Sábado'</span>,
+            <span class="string">'Sunday'</span> =&gt; <span class="string">'Domingo'</span>
+        ];
+        
+        <span class="keyword">echo</span> <span class="string">"📅 LOS PRÓXIMOS 5 DÍAS\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"=======================\n"</span>;
+        
+        <span class="keyword">for</span> (<span class="variable">$i</span> = 1; <span class="variable">$i</span> &lt;= 5; <span class="variable">$i</span>++) {
+            <span class="comment">// Clonar fecha para no modificar la original</span>
+            <span class="variable">$fechaProxima</span> = <span class="keyword">clone</span> <span class="variable">$fecha</span>;
+            <span class="variable">$fechaProxima</span>-&gt;<span class="keyword">add</span>(<span class="keyword">new</span> DateInterval(<span class="string">'P'</span> . <span class="variable">$i</span> . <span class="string">'D'</span>));
+            
+            <span class="variable">$diaSemanaEng</span> = <span class="variable">$fechaProxima</span>-&gt;<span class="keyword">format</span>(<span class="string">'l'</span>);
+            <span class="variable">$diaSemanaEsp</span> = <span class="variable">$diasSemana</span>[<span class="variable">$diaSemanaEng</span>];
+            
+            <span class="comment">// Emoji según el día</span>
+            <span class="variable">$emoji</span> = <span class="string">'📅'</span>;
+            <span class="keyword">if</span> (<span class="variable">$diaSemanaEng</span> == <span class="string">'Saturday'</span> || <span class="variable">$diaSemanaEng</span> == <span class="string">'Sunday'</span>) {
+                <span class="variable">$emoji</span> = <span class="string">'🎉'</span>; <span class="comment">// Fin de semana</span>
+            } <span class="keyword">elseif</span> (<span class="variable">$diaSemanaEng</span> == <span class="string">'Friday'</span>) {
+                <span class="variable">$emoji</span> = <span class="string">'🔥'</span>; <span class="comment">// Viernes!</span>
+            } <span class="keyword">elseif</span> (<span class="variable">$diaSemanaEng</span> == <span class="string">'Monday'</span>) {
+                <span class="variable">$emoji</span> = <span class="string">'💪'</span>; <span class="comment">// Inicio de semana</span>
+            }
+            
+            <span class="keyword">echo</span> <span class="variable">$emoji</span> . <span class="string">" Día "</span> . <span class="variable">$i</span> . <span class="string">": "</span> . <span class="variable">$fechaProxima</span>-&gt;<span class="keyword">format</span>(<span class="string">'d/m/Y'</span>) . 
+                 <span class="string">" - "</span> . <span class="variable">$diaSemanaEsp</span>;
+                 
+            <span class="comment">// Mensaje especial para fines de semana</span>
+            <span class="keyword">if</span> (<span class="variable">$diaSemanaEng</span> == <span class="string">'Saturday'</span> || <span class="variable">$diaSemanaEng</span> == <span class="string">'Sunday'</span>) {
+                <span class="keyword">echo</span> <span class="string">" (¡Fin de semana!)"</span>;
+            }
+            <span class="keyword">echo</span> <span class="string">"\n"</span>;
+        }
+        
+        <span class="keyword">echo</span> <span class="string">"\n🌟 ¡Planifica bien tu semana!"</span>;
+        <span class="keyword">?&gt;</span>
+      </div>
+    </div>
+
+    <div class="chapter" id="buenas-practicas">
+      <h2>💡 7. Consejos y Buenas Prácticas</h2>
+      
+      <h3>Manejo de Zonas Horarias</h3>
+      
+      <div class="tip-box">
+        <h4>🌍 Configuración de Zona Horaria</h4>
+        <p>Siempre establece la zona horaria correcta al inicio de tu aplicación:</p>
+      </div>
+      
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// Establecer zona horaria por defecto</span>
+        <span class="keyword">date_default_timezone_set</span>(<span class="string">'America/Uruguay/Montevideo'</span>);
+        
+        <span class="comment">// O crear fechas con zona específica</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime(<span class="string">'now'</span>, <span class="keyword">new</span> DateTimeZone(<span class="string">'Europe/Madrid'</span>));
+        <span class="keyword">?&gt;</span>
+      </div>
+      
+      <h3>Validación de Fechas</h3>
+      
+      <div class="warning-box">
+        <h4>⚠️ Validar Antes de Procesar</h4>
+        <p>Siempre valida las fechas que vienen del usuario antes de crear objetos DateTime:</p>
+      </div>
+      
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="keyword">function</span> <span class="variable">validarFecha</span>(<span class="variable">$fecha</span>, <span class="variable">$formato</span> = <span class="string">'Y-m-d'</span>) {
+            <span class="variable">$dateTime</span> = DateTime::<span class="keyword">createFromFormat</span>(<span class="variable">$formato</span>, <span class="variable">$fecha</span>);
+            <span class="keyword">return</span> <span class="variable">$dateTime</span> &amp;&amp; <span class="variable">$dateTime</span>-&gt;<span class="keyword">format</span>(<span class="variable">$formato</span>) === <span class="variable">$fecha</span>;
+        }
+        
+        <span class="comment">// Ejemplo de uso</span>
+        <span class="keyword">if</span> (<span class="variable">validarFecha</span>(<span class="string">'2025-02-29'</span>)) {
+            <span class="keyword">echo</span> <span class="string">"Fecha válida"</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">echo</span> <span class="string">"Fecha inválida"</span>;
+        }
+        <span class="keyword">?&gt;</span>
+      </div>
+      
+      <h3>Rendimiento y Optimización</h3>
+      
+      <div class="tip-box">
+        <h4>⚡ Consejos de Rendimiento</h4>
+        <ul>
+          <li><strong>Reutiliza objetos DateTime:</strong> Clone en lugar de crear nuevos cuando sea posible</li>
+          <li><strong>Usa timestamps para comparaciones simples:</strong> Son más rápidos matemáticamente</li>
+          <li><strong>Cachea cálculos complejos:</strong> Especialmente en bucles</li>
+          <li><strong>Usa DateInterval immutable:</strong> Para evitar modificaciones accidentales</li>
+        </ul>
+      </div>
+      
+      <h4>Ejemplo de optimización:</h4>
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// ❌ Malo: Crear nueva instancia en cada iteración</span>
+        <span class="keyword">for</span> (<span class="variable">$i</span> = 0; <span class="variable">$i</span> &lt; 100; <span class="variable">$i</span>++) {
+            <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime();
+            <span class="comment">// procesamiento...</span>
+        }
+        
+        <span class="comment">// ✅ Bueno: Reutilizar y clonar</span>
+        <span class="variable">$fechaBase</span> = <span class="keyword">new</span> DateTime();
+        <span class="keyword">for</span> (<span class="variable">$i</span> = 0; <span class="variable">$i</span> &lt; 100; <span class="variable">$i</span>++) {
+            <span class="variable">$fecha</span> = <span class="keyword">clone</span> <span class="variable">$fechaBase</span>;
+            <span class="comment">// procesamiento...</span>
+        }
+        <span class="keyword">?&gt;</span>
+      </div>
+      
+      <h3>Consistencia en Formatos</h3>
+      
+      <div class="tip-box">
+        <h4>📝 Estandarización de Formatos</h4>
+        <p>Define constantes para los formatos que uses frecuentemente:</p>
+      </div>
+      
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="comment">// Definir constantes para formatos</span>
+        <span class="keyword">define</span>(<span class="string">'FORMATO_FECHA_SIMPLE'</span>, <span class="string">'d/m/Y'</span>);
+        <span class="keyword">define</span>(<span class="string">'FORMATO_FECHA_COMPLETA'</span>, <span class="string">'l, d \d\e F \d\e Y'</span>);
+        <span class="keyword">define</span>(<span class="string">'FORMATO_BASE_DATOS'</span>, <span class="string">'Y-m-d H:i:s'</span>);
+        
+        <span class="comment">// Uso consistente</span>
+        <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime();
+        <span class="keyword">echo</span> <span class="variable">$fecha</span>-&gt;<span class="keyword">format</span>(FORMATO_FECHA_SIMPLE);
+        <span class="keyword">?&gt;</span>
+      </div>
+      
+      <h3>Manejo de Errores</h3>
+      
+      <div class="warning-box">
+        <h4>🚨 Control de Errores</h4>
+        <p>Siempre maneja las excepciones que pueden lanzar las operaciones con fechas:</p>
+      </div>
+      
+      <div class="code-block">
+        <span class="keyword">&lt;?php</span>
+        <span class="keyword">try</span> {
+            <span class="variable">$fecha</span> = <span class="keyword">new</span> DateTime(<span class="variable">$fechaDelUsuario</span>);
+            <span class="comment">// procesamiento...</span>
+        } <span class="keyword">catch</span> (Exception <span class="variable">$e</span>) {
+            <span class="keyword">echo</span> <span class="string">"Error: Fecha inválida - "</span> . <span class="variable">$e</span>-&gt;<span class="keyword">getMessage</span>();
+        }
+        
+        <span class="comment">// Para DateInterval también</span>
+        <span class="keyword">try</span> {
+            <span class="variable">$intervalo</span> = <span class="keyword">new</span> DateInterval(<span class="string">'P1Y'</span>);
+        } <span class="keyword">catch</span> (Exception <span class="variable">$e</span>) {
+            <span class="keyword">echo</span> <span class="string">"Error en intervalo: "</span> . <span class="variable">$e</span>-&gt;<span class="keyword">getMessage</span>();
+        }
+        <span class="keyword">?&gt;</span>
+      </div>
+    </div>
+    
+    <div class="chapter" id="resumen">
+      <h2>📋 8. Resumen y Conclusiones</h2>
+      
+      <h3>Conceptos Clave Aprendidos</h3>
+      
+      <div class="tip-box">
+        <h4>🎯 Lo Más Importante</h4>
+        <ul>
+          <li><strong>DateTime vs timestamp:</strong> DateTime para proyectos nuevos, timestamp para operaciones simples</li>
+          <li><strong>format():</strong> La función más usada para mostrar fechas de forma legible</li>
+          <li><strong>diff():</strong> Para calcular diferencias entre fechas</li>
+          <li><strong>add() y sub():</strong> Para operaciones matemáticas con fechas</li>
+          <li><strong>modify():</strong> Una alternativa más simple para operaciones básicas</li>
+        </ul>
+      </div>
+      
+      <h3>Cuándo Usar Cada Método</h3>
+      
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Caso de Uso</th>
+            <th>Método Recomendado</th>
+            <th>Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mostrar fecha actual</td>
+            <td>DateTime + format()</td>
+            <td>$ahora = new DateTime(); echo $ahora-&gt;format('d/m/Y');</td>
+          </tr>
+          <tr>
+            <td>Calcular edad</td>
+            <td>diff()</td>
+            <td>$edad = $nacimiento-&gt;diff($hoy);</td>
+          </tr>
+          <tr>
+            <td>Sumar días/meses</td>
+            <td>add() + DateInterval</td>
+            <td>$fecha-&gt;add(new DateInterval('P1M'));</td>
+          </tr>
+          <tr>
+            <td>Operaciones simples</td>
+            <td>modify()</td>
+            <td>$fecha-&gt;modify('+1 week');</td>
+          </tr>
+          <tr>
+            <td>Comparar fechas</td>
+            <td>Operadores &lt;, &gt;, ==</td>
+            <td>if ($fecha1 &lt; $fecha2) { ... }</td>
+          </tr>
+          <tr>
+            <td>Cálculos matemáticos</td>
+            <td>timestamps</td>
+            <td>$diff = $timestamp2 - $timestamp1;</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- <h3>Flujo de Trabajo Recomendado</h3>
+      
+      <div class="flowchart">
+        <div class="flowchart-box flow-step-1">1. CREAR FECHA</div>
+        <div class="flowchart-arrow">↓</div>
+        <div class="flowchart-diamond">¿Necesitas operaciones?</div>
+        <div style="display: flex; justify-content: space-around; margin: 20px 0">
+          <div style="text-align: center">
+            <div>SÍ</div>
+            <div class="flowchart-arrow">↓</div>
+            <div class="flowchart-box flow-step-2">2. add(), sub(), modify()</div>
+            <div class="flowchart-arrow">↓</div>
+            <div class="flowchart-box flow-step-3">3. FORMAT &amp; MOSTRAR</div>
+          </div>
+          <div style="text-align: center; margin-left: 20px">
+            <div>NO</div>
+            <div class="flowchart-arrow">↓</div>
+            <div class="flowchart-box flow-step-4">4. FORMAT DIRECTO</div>
+            <div style="font-size: 12px; margin-top: 10px">(mostrar tal como está)</div>
+          </div>
+        </div>
+      </div> -->
+      
+      <h3>Errores Comunes a Evitar</h3>
+      
+      <div class="warning-box">
+        <h4>❌ Errores Frecuentes</h4>
+        <ul>
+          <li><strong>No validar fechas de usuario:</strong> Siempre valida antes de crear DateTime</li>
+          <li><strong>Ignorar zonas horarias:</strong> Especifica la zona horaria correcta</li>
+          <li><strong>Modificar fechas sin clonar:</strong> Usa clone si necesitas preservar la original</li>
+          <li><strong>No manejar excepciones:</strong> DateTime puede lanzar errores</li>
+          <li><strong>Confundir formatos:</strong> Y = año completo, y = año de 2 dígitos</li></ul></div>
+    </div>
+
+  
+</body></html>
